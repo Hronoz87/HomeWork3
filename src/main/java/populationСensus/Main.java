@@ -28,29 +28,18 @@ public class Main {
 
         List<String> recruit = persons.stream()
                 .filter(x -> x.getSex() == Sex.MAN)
-                .filter(x -> x.getAge() >= 18)
-                .filter(x -> x.getAge() <= 27)
+                .filter(x -> x.getAge() >= 18 && x.getAge() <= 27)
                 .map(x -> x.getFamily())
                 .collect(Collectors.toList());
 //        System.out.println(recruit);
 
-        List<Person> efficientWoman = persons.stream()
-                .filter(x -> x.getSex() == Sex.WOMAN)
-                .filter(x -> x.getAge() >= 18)
-                .filter(x -> x.getAge() <= 60)
-                .filter(x -> x.getEducation() == Education.HIGHER)
-                .sorted(Comparator.comparing(Person::getFamily))
-                .collect(Collectors.toList());
-//        System.out.println(efficientWoman);
 
-        List<Person> efficientMan = persons.stream()
-                .filter(x -> x.getSex() == Sex.MAN)
-                .filter(x -> x.getAge() >= 18)
-                .filter(x -> x.getAge() <= 65)
-                .filter(x -> x.getEducation() == Education.HIGHER)
+        List<Person> efficientHuman = persons.stream()
+                .filter(x -> x.getAge() >= 18 && x.getEducation() == Education.HIGHER)
+                .filter(x -> (x.getSex() == Sex.WOMEN && x.getAge() < 60) || (x.getSex() == Sex.MAN && x.getAge() < 65))
                 .sorted(Comparator.comparing(Person::getFamily))
                 .collect(Collectors.toList());
-//        System.out.println(efficientMan);
+        System.out.println(efficientHuman);
 
     }
 }
